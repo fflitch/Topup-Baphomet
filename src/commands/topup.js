@@ -41,54 +41,44 @@ module.exports = {
 
   async execute(interaction) {
 
+    const url = process.env.APPS_SCRIPT_URL;
+
     const payload = {
-
       type: "topup",
-
       id: interaction.options.getString("id"),
-
       server: interaction.options.getString("server"),
-
       remarks: interaction.options.getString("remarks"),
-
       nominal: interaction.options.getNumber("nominal")
-
     };
 
+    console.log("➡️ APPS SCRIPT URL:", url);
+    console.log("➡️ PAYLOAD:", payload);
+
     await interaction.reply({
-
       content: "⏳ Sending Topup...",
-
       flags: 64
-
     });
 
     try {
 
-      const response = await fetch(process.env.APPS_SCRIPT_URL, {
-
+      const response = await fetch(url, {
         method: "POST",
-
         headers: {
-
           "Content-Type": "application/json"
-
         },
-
         body: JSON.stringify(payload)
-
       });
 
-      console.log("STATUS :", response.status);
-      console.log("OK :", response.ok);
-      console.log("URL :", response.url);
+      const text = await response.text();
 
-      const result = await response.text();
+      console.log("STATUS:", response.status);
+      console.log("RESPONSE TEXT:", text);
 
-      console.log("RESULT :", result);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} - ${text}`);
+      }
 
       await interaction.editReply({
-
         content:
 `✅ TOPUP BERHASIL
 
@@ -97,20 +87,26 @@ Server : ${payload.server}
 Remarks : ${payload.remarks}
 Nominal : ${payload.nominal}
 
-${result}`
-
+RESPONSE:
+${text}`
       });
 
     }
 
     catch (err) {
 
-      console.error(err);
+      console.error("❌ TOPUP ERROR:", err);
 
       await interaction.editReply({
+        content:
+`❌ GAGAL TOPUP
 
-        content: "❌ Gagal menghubungi Google Apps Script."
+Error: ${err.message}
 
+Cek:
+- APPS_SCRIPT_URL
+- Deploy /exec
+- Logs VPS`
       });
 
     }
