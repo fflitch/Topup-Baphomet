@@ -79,7 +79,13 @@ module.exports = {
 
       });
 
+      console.log("STATUS :", response.status);
+      console.log("OK :", response.ok);
+      console.log("URL :", response.url);
+
       const result = await response.text();
+
+      console.log("RESULT :", result);
 
       await interaction.editReply({
 
