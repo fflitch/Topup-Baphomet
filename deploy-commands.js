@@ -150,7 +150,14 @@ const commands = [
         .setName("remarks")
         .setDescription("Remarks")
         .setRequired(true)
-    )
+    ),
+
+  // =====================================
+  // SALDO
+  // =====================================
+  new SlashCommandBuilder()
+    .setName("saldo")
+    .setDescription("Cek Saldo Indodax")
 
 ].map(command => command.toJSON());
 
