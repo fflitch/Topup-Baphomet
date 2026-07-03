@@ -23,11 +23,12 @@ module.exports = {
 
     };
 
+    // ==========================
+    // PUBLIC MESSAGE
+    // ==========================
     await interaction.reply({
 
-      content: "⏳ Mengambil Milestone...",
-
-      flags: 64
+      content: "⏳ Mengambil Milestone..."
 
     });
 
