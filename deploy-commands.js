@@ -78,25 +78,6 @@ const commands = [
     ),
 
   // =====================================
-  // RP
-  // =====================================
-  new SlashCommandBuilder()
-    .setName("rp")
-    .setDescription("Report Payment")
-
-    .addStringOption(option =>
-      option
-        .setName("server")
-        .setDescription("Server")
-        .addChoices(
-          { name: "V1", value: "V1" },
-          { name: "V2", value: "V2" },
-          { name: "V1 THUMB", value: "V1 THUMB" }
-        )
-        .setRequired(true)
-    ),
-
-  // =====================================
   // INDODAX
   // =====================================
   new SlashCommandBuilder()
@@ -118,6 +99,25 @@ const commands = [
     ),
 
   // =====================================
+  // RP
+  // =====================================
+  new SlashCommandBuilder()
+    .setName("rp")
+    .setDescription("Report Payment")
+
+    .addStringOption(option =>
+      option
+        .setName("server")
+        .setDescription("Server")
+        .addChoices(
+          { name: "V1", value: "V1" },
+          { name: "V2", value: "V2" },
+          { name: "V1 THUMB", value: "V1 THUMB" }
+        )
+        .setRequired(true)
+    ),
+
+  // =====================================
   // MILESTONE
   // =====================================
   new SlashCommandBuilder()
@@ -128,6 +128,27 @@ const commands = [
       option
         .setName("id")
         .setDescription("ID")
+        .setRequired(true)
+    ),
+
+  // =====================================
+  // CLAIM
+  // =====================================
+  new SlashCommandBuilder()
+    .setName("claim")
+    .setDescription("Claim Milestone")
+
+    .addStringOption(option =>
+      option
+        .setName("id")
+        .setDescription("ID")
+        .setRequired(true)
+    )
+
+    .addStringOption(option =>
+      option
+        .setName("remarks")
+        .setDescription("Remarks")
         .setRequired(true)
     )
 
@@ -151,7 +172,9 @@ const rest = new REST({ version: "10" }).setToken(process.env.DISCORD_TOKEN);
 
     console.log("✅ Slash Commands Deployed");
 
-  } catch (err) {
+  }
+
+  catch (err) {
 
     console.error(err);
 
